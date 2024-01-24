@@ -36,6 +36,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Dict, Any
 
+load_dotenv(find_dotenv())
 app = FastAPI()
 
 def dist(i, j):
@@ -856,20 +857,20 @@ def bpbComparables(event, context):
         if clave in check:
             cp = check['excepcion']
 
-            DRIVER = "ODBC Driver 17 for SQL Server"
-            SERVER = os.environ.get('SERVER')
-            PORT = os.environ.get('PORT')
-            DATABASE = os.environ.get('DATABASE')
-            UID = os.environ.get('UID')
-            CONTR = os.environ.get('CONTR')
-            TDS_Version = os.environ.get('TDS_Version')
+            DRIVER="ODBC Driver 17 for SQL Server"
+            SERVER="ai360cloud.cwbdllecboav.us-east-1.rds.amazonaws.com"
+            PORT=1433
+            DATABASE="ai360cloudprod"
+            UID="admin"
+            PWD="2drow@ssaP"
+            TDS_Version=8.0
 
             conn = pyodbc.connect(f'DRIVER={DRIVER}; \
                                 SERVER={SERVER}; \
                                 PORT={PORT}; \
                                 DATABASE={DATABASE}; \
                                 UID={UID}; \
-                                PWD={CONTR}; \
+                                PWD={PWD}; \
                                 TDS_Version={TDS_Version}')
 
             cursor = conn.cursor()
@@ -985,7 +986,6 @@ def bpbComparables(event, context):
             "headers": {},
             "statusCode": 401
         }
-
 
 def bpb_dicc(dicc: Dict[str, any]) -> Dict[str, Any]:
     DRIVER="ODBC Driver 17 for SQL Server"
@@ -1191,9 +1191,6 @@ def bpb_dicc(dicc: Dict[str, any]) -> Dict[str, Any]:
     conn.close()
     return json_avaluo
 
-
-load_dotenv(find_dotenv())
-
 @app.post("/api/calculo_avaluo")
 async def calculo_avaluo(dicc: Dict[str, Any]= {
     "property_details": {
@@ -1231,8 +1228,3 @@ async def calculo_avaluo(dicc: Dict[str, Any]= {
 }):
     json_avaluo = bpb_dicc(dicc)
     return json_avaluo
-
-
-
-
-
