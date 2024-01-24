@@ -1,4 +1,16 @@
+import os
 from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import Dict, Any
+import jwt
+from dotenv import load_dotenv, find_dotenv
+from typing import Optional
+import json
+import jwt
+from fastapi import FastAPI
+from pydantic import BaseModel
+import os
+from dotenv import load_dotenv, find_dotenv
 from pydantic import BaseModel
 import boto3
 import json
@@ -23,9 +35,8 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Dict, Any
-from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv())
+app = FastAPI()
 
 def dist(i, j):
     lat1 = radians(i[0])
@@ -975,7 +986,6 @@ def bpbComparables(event, context):
             "statusCode": 401
         }
 
-app = FastAPI()
 
 def bpb_dicc(dicc: Dict[str, any]) -> Dict[str, Any]:
     DRIVER="ODBC Driver 17 for SQL Server"
@@ -1178,10 +1188,11 @@ def bpb_dicc(dicc: Dict[str, any]) -> Dict[str, Any]:
 
     json_avaluo = json.dumps(dicc_json_avaluo, indent=4)
     json_avaluo = json.loads(json_avaluo)
-
     conn.close()
-
     return json_avaluo
+
+
+load_dotenv(find_dotenv())
 
 @app.post("/api/calculo_avaluo")
 async def calculo_avaluo(dicc: Dict[str, Any]= {
