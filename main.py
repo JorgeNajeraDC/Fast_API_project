@@ -856,12 +856,12 @@ def bpbComparables(event, context):
         if clave in check:
             cp = check['excepcion']
 
-            DRIVER = os.environ.get('DRIVER')
+            DRIVER = "ODBC Driver 17 for SQL Server"
             SERVER = os.environ.get('SERVER')
             PORT = os.environ.get('PORT')
             DATABASE = os.environ.get('DATABASE')
             UID = os.environ.get('UID')
-            PWD = os.environ.get('PWD')
+            CONTR = os.environ.get('CONTR')
             TDS_Version = os.environ.get('TDS_Version')
 
             conn = pyodbc.connect(f'DRIVER={DRIVER}; \
@@ -869,7 +869,7 @@ def bpbComparables(event, context):
                                 PORT={PORT}; \
                                 DATABASE={DATABASE}; \
                                 UID={UID}; \
-                                PWD={PWD}; \
+                                PWD={CONTR}; \
                                 TDS_Version={TDS_Version}')
 
             cursor = conn.cursor()
