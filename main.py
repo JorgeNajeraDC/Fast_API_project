@@ -858,19 +858,19 @@ def bpbComparables(event, context):
             cp = check['excepcion']
 
             DRIVER="ODBC Driver 17 for SQL Server"
-            SERVER="ai360cloud.cwbdllecboav.us-east-1.rds.amazonaws.com"
-            PORT=1433
-            DATABASE="ai360cloudprod"
-            UID="admin"
-            PWD="2drow@ssaP"
-            TDS_Version=8.0
+            SERVER=os.environ.get("SERVER")
+            PORT=os.environ.get("PORT")
+            DATABASE=os.environ.get("DATABASE")
+            UID=os.environ.get("UID")
+            CONTR=os.environ.get("CONTR")
+            TDS_Version=os.environ.get("TDS_Version")
 
             conn = pyodbc.connect(f'DRIVER={DRIVER}; \
                                 SERVER={SERVER}; \
                                 PORT={PORT}; \
                                 DATABASE={DATABASE}; \
                                 UID={UID}; \
-                                PWD={PWD}; \
+                                PWD={CONTR}; \
                                 TDS_Version={TDS_Version}')
 
             cursor = conn.cursor()
