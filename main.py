@@ -23,7 +23,9 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Dict, Any
+from dotenv import load_dotenv, find_dotenv
 
+load_dotenv(find_dotenv())
 
 def dist(i, j):
     lat1 = radians(i[0])
@@ -976,20 +978,20 @@ def bpbComparables(event, context):
 app = FastAPI()
 
 def bpb_dicc(dicc: Dict[str, any]) -> Dict[str, Any]:
-    DRIVER = 'ODBC Driver 17 for SQL Server'
-    SERVER = 'ai360cloud.cwbdllecboav.us-east-1.rds.amazonaws.com'
-    PORT = 1433
-    DATABASE = 'ai360cloudprod'
-    UID = 'admin'
-    PWD = '2drow@ssaP'
-    TDS_Version = 8.0
+    DRIVER="ODBC Driver 17 for SQL Server"
+    SERVER=os.environ.get("SERVER")
+    PORT=os.environ.get("PORT")
+    DATABASE=os.environ.get("DATABASE")
+    UID=os.environ.get("UID")
+    CONTR=os.environ.get("CONTR")
+    TDS_Version=os.environ.get("TDS_Version")
 
     conn = pyodbc.connect(f'DRIVER={DRIVER}; \
                            SERVER={SERVER}; \
                            PORT={PORT}; \
                            DATABASE={DATABASE}; \
                            UID={UID}; \
-                           PWD={PWD}; \
+                           PWD={CONTR}; \
                            TDS_Version={TDS_Version}')
 
     idval = str(dicc['property_details']['id_appraisal'])
